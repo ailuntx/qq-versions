@@ -2,9 +2,112 @@
   "schema": 1,
   "product": "QQ Linux",
   "source": "https://im.qq.com/linuxqq/index.shtml",
-  "updated_at": "2026-06-10T08:56:48+00:00",
-  "latest": "3.2.29",
+  "updated_at": "2026-06-10T08:59:57+00:00",
+  "latest": "3.2.22",
   "versions": [
+    {
+      "version": "3.2.22",
+      "released": "2025-12-03T00:00:00+00:00",
+      "packages": {
+        "x86_64": {
+          "deb": {
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.22_251203_amd64_01.deb",
+            "status": 404,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Not Found",
+            "download_error": "Not Found"
+          },
+          "rpm": {
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.22_251203_x86_64_01.rpm",
+            "status": 404,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Not Found",
+            "download_error": "Not Found"
+          },
+          "appimage": {
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.22_251203_x86_64_01.AppImage",
+            "status": 404,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Not Found",
+            "download_error": "Not Found"
+          }
+        },
+        "arm64": {
+          "deb": {
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.22_251203_arm64_01.deb",
+            "status": 404,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Not Found",
+            "download_error": "Not Found"
+          },
+          "rpm": {
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.22_251203_aarch64_01.rpm",
+            "status": 404,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Not Found",
+            "download_error": "Not Found"
+          },
+          "appimage": {
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.22_251203_arm64_01.AppImage",
+            "status": 404,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Not Found",
+            "download_error": "Not Found"
+          }
+        },
+        "loongarch64": {
+          "deb": {
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.22_251203_loongarch64_01.deb",
+            "status": 404,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Not Found",
+            "download_error": "Not Found"
+          }
+        },
+        "mips64el": {
+          "deb": {
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.22_251203_mips64el_01.deb",
+            "status": 404,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Not Found",
+            "download_error": "Not Found"
+          }
+        }
+      },
+      "config_url": "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/linuxConfig.js"
+    },
     {
       "version": "3.2.29",
       "released": "2026-05-28T00:00:00+00:00",
