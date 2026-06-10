@@ -2,7 +2,7 @@
   "schema": 1,
   "product": "QQ Linux",
   "source": "https://im.qq.com/linuxqq/index.shtml",
-  "updated_at": "2026-06-10T08:44:13+00:00",
+  "updated_at": "2026-06-10T08:56:48+00:00",
   "latest": "3.2.29",
   "versions": [
     {
@@ -12,73 +12,89 @@
         "x86_64": {
           "deb": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_amd64_01.deb",
+            "status": 200,
             "size": 182597964,
             "last_modified": "2026-05-28T02:18:56+00:00",
             "etag": "\"109b1920f5935acf03b7d539699f2656-9\"",
             "md5": null,
-            "sha256": null
+            "sha256": null,
+            "error": null
           },
           "rpm": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_x86_64_01.rpm",
+            "status": 200,
             "size": 184197956,
             "last_modified": "2026-05-28T02:19:04+00:00",
             "etag": "\"28281a3ebd419caedf621158f55059e8-9\"",
             "md5": null,
-            "sha256": null
+            "sha256": null,
+            "error": null
           },
           "appimage": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_x86_64_01.AppImage",
+            "status": 200,
             "size": 262796515,
             "last_modified": "2026-05-28T02:19:04+00:00",
             "etag": "\"acd16372459d85d1fa661943f007466b-13\"",
             "md5": null,
-            "sha256": null
+            "sha256": null,
+            "error": null
           }
         },
         "arm64": {
           "deb": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_arm64_01.deb",
+            "status": 200,
             "size": 201728544,
             "last_modified": "2026-05-28T02:19:00+00:00",
             "etag": "\"59d3c0bf4c89b8f95f69c8a8b987684c-10\"",
             "md5": null,
-            "sha256": null
+            "sha256": null,
+            "error": null
           },
           "rpm": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_aarch64_01.rpm",
+            "status": 200,
             "size": 176727673,
             "last_modified": "2026-05-28T02:18:56+00:00",
             "etag": "\"a271b2af5c223523349322a98afe32a4-9\"",
             "md5": null,
-            "sha256": null
+            "sha256": null,
+            "error": null
           },
           "appimage": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_arm64_01.AppImage",
+            "status": 200,
             "size": 267676928,
             "last_modified": "2026-05-28T02:18:56+00:00",
             "etag": "\"c31e00fde8952a8aba0e1e0d74e51076-13\"",
             "md5": null,
-            "sha256": null
+            "sha256": null,
+            "error": null
           }
         },
         "loongarch64": {
           "deb": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_loongarch64_01.deb",
+            "status": 200,
             "size": 174391568,
             "last_modified": "2026-05-28T02:19:00+00:00",
             "etag": "\"ccc31cf55b0809fc87ecde65a7202de0-9\"",
             "md5": null,
-            "sha256": null
+            "sha256": null,
+            "error": null
           }
         },
         "mips64el": {
           "deb": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_mips64el_01.deb",
+            "status": 200,
             "size": 169638818,
             "last_modified": "2026-05-28T02:19:01+00:00",
             "etag": "\"ac1c3ac74e18b27d75e4070f0a3b9b48-9\"",
             "md5": null,
-            "sha256": null
+            "sha256": null,
+            "error": null
           }
         }
       },

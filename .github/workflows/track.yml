@@ -43,6 +43,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${{ steps.check.outputs.tag }}" downloads/* \
-            --title "QQ Linux ${{ steps.check.outputs.version }}" \
-            --notes-file release-notes.md
+          if compgen -G "downloads/*" > /dev/null; then
+            gh release create "${{ steps.check.outputs.tag }}" downloads/* \
+              --title "QQ Linux ${{ steps.check.outputs.version }}" \
+              --notes-file release-notes.md
+          else
+            gh release create "${{ steps.check.outputs.tag }}" \
+              --title "QQ Linux ${{ steps.check.outputs.version }}" \
+              --notes-file release-notes.md
+          fi

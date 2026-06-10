@@ -58,7 +58,12 @@ def request_headers(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict[str, str]:
             }
     except urllib.error.HTTPError as exc:
         if exc.code not in {403, 405}:
-            raise
+            return {
+                "url": url,
+                "status": str(exc.code),
+                "error": str(exc.reason),
+                **{k.lower(): v for k, v in exc.headers.items()},
+            }
 
     req = urllib.request.Request(
         url,
@@ -67,11 +72,19 @@ def request_headers(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict[str, str]:
             "Range": "bytes=0-0",
         },
     )
-    with urllib.request.urlopen(req, timeout=timeout) as response:
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as response:
+            return {
+                "url": response.geturl(),
+                "status": str(response.status),
+                **{k.lower(): v for k, v in response.headers.items()},
+            }
+    except urllib.error.HTTPError as exc:
         return {
-            "url": response.geturl(),
-            "status": str(response.status),
-            **{k.lower(): v for k, v in response.headers.items()},
+            "url": url,
+            "status": str(exc.code),
+            "error": str(exc.reason),
+            **{k.lower(): v for k, v in exc.headers.items()},
         }
 
 
@@ -146,11 +159,13 @@ def enrich_package_metadata(release: dict[str, Any], timeout: int) -> dict[str, 
             info.update(
                 {
                     "url": headers.get("url", info["url"]),
+                    "status": int(headers["status"]) if headers.get("status", "").isdigit() else None,
                     "size": int(content_length) if content_length and content_length.isdigit() else None,
                     "last_modified": parse_http_date(headers.get("last-modified")),
                     "etag": headers.get("etag"),
                     "md5": headers.get("x-cos-meta-md5"),
                     "sha256": None,
+                    "error": headers.get("error"),
                 }
             )
     return release
@@ -232,7 +247,11 @@ def download_release_assets(release: dict[str, Any], directory: Path, timeout: i
         shutil.rmtree(directory)
     for by_type in release["packages"].values():
         for info in by_type.values():
-            path, size, sha256 = download_file(info["url"], directory, timeout)
+            try:
+                path, size, sha256 = download_file(info["url"], directory, timeout)
+            except urllib.error.URLError as exc:
+                info["download_error"] = str(exc.reason)
+                continue
             info["file"] = path.name
             info["size"] = size
             info["sha256"] = sha256
@@ -254,6 +273,8 @@ def release_notes(release: dict[str, Any]) -> str:
             file_name = info.get("file") or filename_from_url(info["url"])
             sha256 = info.get("sha256") or "unknown"
             size = info.get("size")
+            if info.get("download_error"):
+                file_name = f"{file_name} (download failed: {info['download_error']})"
             lines.append(
                 f"| {arch} | {package_type} | `{file_name}` | {size if size is not None else 'unknown'} | "
                 f"`{sha256}` | [official]({info['url']}) |"
