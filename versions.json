@@ -2,7 +2,7 @@
   "schema": 1,
   "product": "QQ Linux",
   "source": "https://im.qq.com/linuxqq/index.shtml",
-  "updated_at": "2026-06-10T09:01:34+00:00",
+  "updated_at": "2026-06-10T09:37:30+00:00",
   "latest": "3.2.29",
   "versions": [
     {
@@ -120,8 +120,10 @@
             "last_modified": "2026-05-28T02:18:56+00:00",
             "etag": "\"109b1920f5935acf03b7d539699f2656-9\"",
             "md5": null,
-            "sha256": null,
-            "error": null
+            "sha256": "1e3828079673c94994bc0f4780d5d8528647639920659862d49d1c2f2a198e25",
+            "error": null,
+            "file": "QQ_3.2.29_260528_amd64_01.deb",
+            "size_human": "174.1 MiB (182597964 bytes)"
           },
           "rpm": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_x86_64_01.rpm",
@@ -130,8 +132,10 @@
             "last_modified": "2026-05-28T02:19:04+00:00",
             "etag": "\"28281a3ebd419caedf621158f55059e8-9\"",
             "md5": null,
-            "sha256": null,
-            "error": null
+            "sha256": "2a42d3ff1604840f4872a24b0ae3073fdfb8f32873d6f37322e97984476ce781",
+            "error": null,
+            "file": "QQ_3.2.29_260528_x86_64_01.rpm",
+            "size_human": "175.7 MiB (184197956 bytes)"
           },
           "appimage": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_x86_64_01.AppImage",
@@ -140,8 +144,10 @@
             "last_modified": "2026-05-28T02:19:04+00:00",
             "etag": "\"acd16372459d85d1fa661943f007466b-13\"",
             "md5": null,
-            "sha256": null,
-            "error": null
+            "sha256": "056ce0340f0276c6381428cb7d391d0f6ce3cecede0f3f8e7cc5ad58d4c7a4bb",
+            "error": null,
+            "file": "QQ_3.2.29_260528_x86_64_01.AppImage",
+            "size_human": "250.6 MiB (262796515 bytes)"
           }
         },
         "arm64": {
@@ -152,8 +158,10 @@
             "last_modified": "2026-05-28T02:19:00+00:00",
             "etag": "\"59d3c0bf4c89b8f95f69c8a8b987684c-10\"",
             "md5": null,
-            "sha256": null,
-            "error": null
+            "sha256": "5bcd8ccda401fbfa1821a7c3c758f84a253c317568f0b9c2d74426a24749e9a6",
+            "error": null,
+            "file": "QQ_3.2.29_260528_arm64_01.deb",
+            "size_human": "192.4 MiB (201728544 bytes)"
           },
           "rpm": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_aarch64_01.rpm",
@@ -162,8 +170,10 @@
             "last_modified": "2026-05-28T02:18:56+00:00",
             "etag": "\"a271b2af5c223523349322a98afe32a4-9\"",
             "md5": null,
-            "sha256": null,
-            "error": null
+            "sha256": "f1903bb7c212e6a44e46eb5a20b2f14a28ca69d4979dd8564d4dbc7103804826",
+            "error": null,
+            "file": "QQ_3.2.29_260528_aarch64_01.rpm",
+            "size_human": "168.5 MiB (176727673 bytes)"
           },
           "appimage": {
             "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.31/release/00e6a3e7/QQ_3.2.29_260528_arm64_01.AppImage",
@@ -172,8 +182,10 @@
             "last_modified": "2026-05-28T02:18:56+00:00",
             "etag": "\"c31e00fde8952a8aba0e1e0d74e51076-13\"",
             "md5": null,
-            "sha256": null,
-            "error": null
+            "sha256": "de14bfdc63265fb6709722c156c7faf940c2698269d3004515f58b6547b3c1c9",
+            "error": null,
+            "file": "QQ_3.2.29_260528_arm64_01.AppImage",
+            "size_human": "255.3 MiB (267676928 bytes)"
           }
         },
         "loongarch64": {
@@ -184,8 +196,10 @@
             "last_modified": "2026-05-28T02:19:00+00:00",
             "etag": "\"ccc31cf55b0809fc87ecde65a7202de0-9\"",
             "md5": null,
-            "sha256": null,
-            "error": null
+            "sha256": "cd02e76157983e328212f67eca972cfa07268d1d17c6f35f06ad4a508d085aa9",
+            "error": null,
+            "file": "QQ_3.2.29_260528_loongarch64_01.deb",
+            "size_human": "166.3 MiB (174391568 bytes)"
           }
         },
         "mips64el": {
@@ -196,8 +210,10 @@
             "last_modified": "2026-05-28T02:19:01+00:00",
             "etag": "\"ac1c3ac74e18b27d75e4070f0a3b9b48-9\"",
             "md5": null,
-            "sha256": null,
-            "error": null
+            "sha256": "b5ffd879f0467dfb82d2d0b68610d52945bb363818e4044ddb9bfbee23b11ab4",
+            "error": null,
+            "file": "QQ_3.2.29_260528_mips64el_01.deb",
+            "size_human": "161.8 MiB (169638818 bytes)"
           }
         }
       },
