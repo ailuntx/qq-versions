@@ -11,6 +11,8 @@
 - `packages`: 按架构和包格式分组的下载信息
 - `config_url`: 本次采集使用的官方配置脚本
 
+QQ Linux 官网会按访问地区/CDN 返回不同版本。`latest` 表示当前已知最高版本，`last_seen` 表示最近一次采集环境看到的版本。
+
 当前支持的 Linux 包：
 
 - `x86_64`: `deb`、`rpm`、`appimage`

@@ -200,17 +200,23 @@ def known_versions(data: dict[str, Any]) -> set[str]:
     return {entry["version"] for entry in data.get("versions", [])}
 
 
+def version_key(version: str) -> tuple[int, ...]:
+    return tuple(int(part) for part in re.findall(r"\d+", version))
+
+
 def upsert_release(data: dict[str, Any], release: dict[str, Any]) -> dict[str, Any]:
     versions = [entry for entry in data.get("versions", []) if entry["version"] != release["version"]]
     versions.append(release)
     versions.sort(key=lambda entry: (entry.get("released") or "", entry["version"]))
+    latest = max(versions, key=lambda entry: version_key(entry["version"]))["version"]
     data.update(
         {
             "schema": 1,
             "product": PRODUCT,
             "source": SOURCE_URL,
             "updated_at": utc_now(),
-            "latest": release["version"],
+            "latest": latest,
+            "last_seen": release["version"],
             "versions": versions,
         }
     )
