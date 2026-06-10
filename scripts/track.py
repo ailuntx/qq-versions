@@ -7,10 +7,12 @@ import argparse
 import datetime as dt
 import email.utils
 import hashlib
+import http.client
 import json
 import os
 import re
 import shutil
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -252,24 +254,38 @@ def human_size(size: int | None) -> str:
     return f"{size / 1024 / 1024:.1f} MiB ({size} bytes)"
 
 
-def download_file(url: str, directory: Path, timeout: int) -> tuple[Path, int, str]:
+DOWNLOAD_ERRORS = (urllib.error.URLError, OSError, http.client.HTTPException, TimeoutError)
+
+
+def download_file(url: str, directory: Path, timeout: int, attempts: int = 3) -> tuple[Path, int, str]:
     directory.mkdir(parents=True, exist_ok=True)
     target = directory / filename_from_url(url)
-    req = urllib.request.Request(
-        url,
-        headers={"User-Agent": "Mozilla/5.0 (compatible; version-tracker/1.0)"},
-    )
-    digest = hashlib.sha256()
-    size = 0
-    with urllib.request.urlopen(req, timeout=timeout) as response, target.open("wb") as fh:
-        while True:
-            chunk = response.read(1024 * 1024)
-            if not chunk:
-                break
-            fh.write(chunk)
-            digest.update(chunk)
-            size += len(chunk)
-    return target, size, digest.hexdigest()
+    last_error: BaseException | None = None
+    for attempt in range(1, attempts + 1):
+        req = urllib.request.Request(
+            url,
+            headers={"User-Agent": "Mozilla/5.0 (compatible; version-tracker/1.0)"},
+        )
+        digest = hashlib.sha256()
+        size = 0
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as response, target.open("wb") as fh:
+                while True:
+                    chunk = response.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    fh.write(chunk)
+                    digest.update(chunk)
+                    size += len(chunk)
+            return target, size, digest.hexdigest()
+        except DOWNLOAD_ERRORS as exc:
+            last_error = exc
+            if target.exists():
+                target.unlink()
+            if attempt < attempts:
+                time.sleep(2 * attempt)
+    assert last_error is not None
+    raise last_error
 
 
 def download_release_assets(release: dict[str, Any], directory: Path, timeout: int) -> None:
@@ -279,8 +295,8 @@ def download_release_assets(release: dict[str, Any], directory: Path, timeout: i
         for info in by_type.values():
             try:
                 path, size, sha256 = download_file(info["url"], directory, timeout)
-            except urllib.error.URLError as exc:
-                info["download_error"] = str(exc.reason)
+            except DOWNLOAD_ERRORS as exc:
+                info["download_error"] = str(getattr(exc, "reason", exc))
                 continue
             info["file"] = path.name
             info["size"] = size
