@@ -12,6 +12,8 @@ from urllib.parse import quote
 REPO = "ailuntx/qq-versions"
 PRODUCT = "QQ Linux"
 OFFICIAL_URL = "https://im.qq.com/linuxqq/index.shtml"
+ARCH_COLUMNS = ["x86_64", "arm64", "loongarch64", "mips64el"]
+PACKAGE_ORDER = ["deb", "rpm", "AppImage", "appimage"]
 
 
 def version_key(version: str) -> tuple[int, ...]:
@@ -34,25 +36,34 @@ def display_date(value: str | None) -> str:
     return value.replace("T", " ").replace("+00:00", " UTC")
 
 
-def package_links(version: str, packages: dict) -> str:
-    groups: list[str] = [f"[Release]({release_url(version)})"]
-    for arch, by_type in packages.items():
-        links = []
-        for package_type, info in by_type.items():
-            url = asset_url(version, info["file"]) if info.get("file") else info["url"]
-            links.append(f"[{package_type}]({url})")
-        groups.append(f"{arch}: " + ", ".join(links))
-    return " / ".join(groups)
+def arch_links(version: str, packages: dict, arch: str) -> str:
+    by_type = packages.get(arch)
+    if not by_type:
+        return "-"
+    links = []
+    for package_type in PACKAGE_ORDER:
+        info = by_type.get(package_type)
+        if not info:
+            continue
+        label = "AppImage" if package_type.lower() == "appimage" else package_type
+        url = asset_url(version, info["file"]) if info.get("file") else info["url"]
+        links.append(f"[{label}]({url})")
+    return " / ".join(links) if links else "-"
 
 
 def version_rows(data: dict) -> str:
     versions = sorted(data["versions"], key=lambda item: version_key(item["version"]), reverse=True)
-    lines = ["| 版本 | 官方发布时间 | 下载链接 |", "| --- | --- | --- |"]
+    header = ["版本", "官方发布时间", "Release", *ARCH_COLUMNS]
+    lines = ["| " + " | ".join(header) + " |", "| " + " | ".join(["---"] * len(header)) + " |"]
     for item in versions:
-        lines.append(
-            f"| {item['version']} | {display_date(item.get('released'))} | "
-            f"{package_links(item['version'], item['packages'])} |"
-        )
+        version = item["version"]
+        row = [
+            version,
+            display_date(item.get("released")),
+            f"[Release]({release_url(version)})",
+            *[arch_links(version, item["packages"], arch) for arch in ARCH_COLUMNS],
+        ]
+        lines.append("| " + " | ".join(row) + " |")
     return "\n".join(lines)
 
 

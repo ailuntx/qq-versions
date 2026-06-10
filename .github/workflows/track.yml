@@ -67,21 +67,25 @@ jobs:
             if gh release view "${{ steps.check.outputs.tag }}" >/dev/null 2>&1; then
               gh release edit "${{ steps.check.outputs.tag }}" \
                 --title "QQ Linux ${{ steps.check.outputs.version }}" \
-                --notes-file release-notes.md
+                --notes-file release-notes.md \
+                --latest
               gh release upload "${{ steps.check.outputs.tag }}" downloads/* --clobber
             else
               gh release create "${{ steps.check.outputs.tag }}" downloads/* \
                 --title "QQ Linux ${{ steps.check.outputs.version }}" \
-                --notes-file release-notes.md
+                --notes-file release-notes.md \
+                --latest
             fi
           else
             if gh release view "${{ steps.check.outputs.tag }}" >/dev/null 2>&1; then
               gh release edit "${{ steps.check.outputs.tag }}" \
                 --title "QQ Linux ${{ steps.check.outputs.version }}" \
-                --notes-file release-notes.md
+                --notes-file release-notes.md \
+                --latest
             else
               gh release create "${{ steps.check.outputs.tag }}" \
                 --title "QQ Linux ${{ steps.check.outputs.version }}" \
-                --notes-file release-notes.md
+                --notes-file release-notes.md \
+                --latest
             fi
           fi
