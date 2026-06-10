@@ -44,6 +44,13 @@ def fetch_text(url: str, timeout: int = DEFAULT_TIMEOUT) -> str:
 
 
 def request_headers(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict[str, str]:
+    def failed(exc: BaseException) -> dict[str, str]:
+        return {
+            "url": url,
+            "status": "",
+            "error": str(exc),
+        }
+
     req = urllib.request.Request(
         url,
         method="HEAD",
@@ -64,6 +71,8 @@ def request_headers(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict[str, str]:
                 "error": str(exc.reason),
                 **{k.lower(): v for k, v in exc.headers.items()},
             }
+    except (urllib.error.URLError, OSError) as exc:
+        return failed(exc)
 
     req = urllib.request.Request(
         url,
@@ -86,6 +95,8 @@ def request_headers(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict[str, str]:
             "error": str(exc.reason),
             **{k.lower(): v for k, v in exc.headers.items()},
         }
+    except (urllib.error.URLError, OSError) as exc:
+        return failed(exc)
 
 
 def parse_http_date(value: str | None) -> str | None:
