@@ -1,60 +1,31 @@
-# qq-versions
+# QQ Linux Versions
 
-自动采集 QQ Linux 版公开下载信息，并通过 GitHub Actions 发布版本归档。
+QQ Linux 版安装包归档。安装包来自腾讯官方公开下载地址，Release 中保留归档副本和 SHA256。
 
-## 数据文件
+## 版本表
 
-`versions.json` 记录 Linux 版历史版本。每个版本包含：
+| 版本 | 官方发布时间 | 下载链接 |
+| --- | --- | --- |
+| 3.2.29 | 2026-05-28 | [Release](https://github.com/ailuntx/qq-versions/releases/tag/3.2.29) / x86_64: [deb](https://github.com/ailuntx/qq-versions/releases/download/3.2.29/QQ_3.2.29_260528_amd64_01.deb), [rpm](https://github.com/ailuntx/qq-versions/releases/download/3.2.29/QQ_3.2.29_260528_x86_64_01.rpm), [AppImage](https://github.com/ailuntx/qq-versions/releases/download/3.2.29/QQ_3.2.29_260528_x86_64_01.AppImage) / arm64: [deb](https://github.com/ailuntx/qq-versions/releases/download/3.2.29/QQ_3.2.29_260528_arm64_01.deb), [rpm](https://github.com/ailuntx/qq-versions/releases/download/3.2.29/QQ_3.2.29_260528_aarch64_01.rpm), [AppImage](https://github.com/ailuntx/qq-versions/releases/download/3.2.29/QQ_3.2.29_260528_arm64_01.AppImage) / [loongarch64 deb](https://github.com/ailuntx/qq-versions/releases/download/3.2.29/QQ_3.2.29_260528_loongarch64_01.deb) / [mips64el deb](https://github.com/ailuntx/qq-versions/releases/download/3.2.29/QQ_3.2.29_260528_mips64el_01.deb) |
+| 3.2.22 | 2025-12-03 | [Release](https://github.com/ailuntx/qq-versions/releases/tag/3.2.22) |
 
-- `version`: 官方配置中的版本号
-- `released`: 官方配置中的更新时间
-- `packages`: 按架构和包格式分组的下载信息
-- `config_url`: 本次采集使用的官方配置脚本
-- `size_human`: 下载安装包后写入的易读大小
-- `sha256`: 下载安装包后计算的 SHA256
+官方页面：<https://im.qq.com/linuxqq/index.shtml>
 
-QQ Linux 官网会按访问地区/CDN 返回不同版本。`latest` 表示当前已知最高版本，`last_seen` 表示最近一次采集环境看到的版本。
+> QQ Linux 官网会按访问地区/CDN 返回不同版本。本仓库的 `latest` 表示当前已知最高版本；旧版本可能只有官方链接或 Release 记录，没有完整归档资产。
 
-当前支持的 Linux 包：
+## 校验信息
 
-- `x86_64`: `deb`、`rpm`、`appimage`
-- `arm64`: `deb`、`rpm`、`appimage`
-- `loongarch64`: `deb`
-- `mips64el`: `deb`，如果官方配置继续提供
+每个 Release 的说明里包含文件大小和 SHA256。也可以查看 [`versions.json`](versions.json) 获取完整元数据。
 
-## 本地运行
+## 自动更新
 
-```bash
-python -m unittest discover -s tests
-python scripts/track.py --check
-python scripts/track.py --update
-```
+仓库每天自动检查一次官方 Linux 版本。发现新版本时会下载官方安装包、计算 SHA256、更新 `versions.json`，并创建 GitHub Release。
 
-需要下载安装包并计算 `sha256` 时：
-
-```bash
-python scripts/track.py --check --update --download
-```
-
-重新发布已记录版本的资产：
-
-```bash
-python scripts/track.py --update --download --version 3.2.29
-```
-
-## 自动发布
-
-`.github/workflows/track.yml` 每 6 小时检查一次。发现新版本后会：
-
-1. 更新 `versions.json`
-2. 下载官方 Linux 安装包并计算 `sha256`
-3. 提交数据文件
-4. 创建 GitHub Release 并上传安装包
+相同版本不会重复下载。只有手动运行 workflow 并填写 `version` 时，才会重新下载该版本并覆盖上传 Release 资产。
 
 ## 相关项目
 
 - Windows: <https://github.com/PRO-2684/qqnt-version-history>
-- 官方 Linux 页面: <https://im.qq.com/linuxqq/index.shtml>
 - 官方新版入口: <https://im.qq.com/index/#/linux>
 
-安装包版权归腾讯所有。本项目仅保存公开元数据和自动发布流程。
+安装包版权归腾讯所有。本项目仅用于公开版本归档。
