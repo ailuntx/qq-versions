@@ -200,6 +200,13 @@ def known_versions(data: dict[str, Any]) -> set[str]:
     return {entry["version"] for entry in data.get("versions", [])}
 
 
+def find_version(data: dict[str, Any], version: str) -> dict[str, Any] | None:
+    for entry in data.get("versions", []):
+        if entry["version"] == version:
+            return entry
+    return None
+
+
 def version_key(version: str) -> tuple[int, ...]:
     return tuple(int(part) for part in re.findall(r"\d+", version))
 
@@ -239,6 +246,12 @@ def filename_from_url(url: str) -> str:
     return urllib.parse.urlparse(url).path.rsplit("/", 1)[-1]
 
 
+def human_size(size: int | None) -> str:
+    if size is None:
+        return "unknown"
+    return f"{size / 1024 / 1024:.1f} MiB ({size} bytes)"
+
+
 def download_file(url: str, directory: Path, timeout: int) -> tuple[Path, int, str]:
     directory.mkdir(parents=True, exist_ok=True)
     target = directory / filename_from_url(url)
@@ -271,6 +284,7 @@ def download_release_assets(release: dict[str, Any], directory: Path, timeout: i
                 continue
             info["file"] = path.name
             info["size"] = size
+            info["size_human"] = human_size(size)
             info["sha256"] = sha256
 
 
@@ -289,11 +303,11 @@ def release_notes(release: dict[str, Any]) -> str:
         for package_type, info in sorted(by_type.items()):
             file_name = info.get("file") or filename_from_url(info["url"])
             sha256 = info.get("sha256") or "unknown"
-            size = info.get("size")
+            size = human_size(info.get("size"))
             if info.get("download_error"):
                 file_name = f"{file_name} (download failed: {info['download_error']})"
             lines.append(
-                f"| {arch} | {package_type} | `{file_name}` | {size if size is not None else 'unknown'} | "
+                f"| {arch} | {package_type} | `{file_name}` | {size} | "
                 f"`{sha256}` | [official]({info['url']}) |"
             )
     lines.append("")
@@ -315,6 +329,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--release-notes", type=Path, default=Path("release-notes.md"))
     parser.add_argument("--download-dir", type=Path, default=Path("downloads"))
     parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
+    parser.add_argument("--version", help="Use an existing version from versions.json instead of live metadata")
     parser.add_argument("--check", action="store_true", help="Fetch current metadata and set changed output")
     parser.add_argument("--update", action="store_true", help="Update versions.json from --latest or live metadata")
     parser.add_argument("--download", action="store_true", help="Download release assets and compute sha256")
@@ -326,7 +341,14 @@ def main(argv: list[str] | None = None) -> int:
     data = load_versions(args.versions)
     release: dict[str, Any]
 
-    if args.check:
+    if args.version:
+        release = find_version(data, args.version)
+        if not release:
+            raise RuntimeError(f"Version {args.version} not found in {args.versions}")
+        set_output("changed", "true")
+        set_output("version", release["version"])
+        set_output("tag", release["version"])
+    elif args.check:
         release = get_current_release(args.timeout)
         write_json(args.latest, release)
         changed = release["version"] not in known_versions(data)

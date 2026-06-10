@@ -2,6 +2,11 @@ name: Track QQ Linux
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Existing version to publish or republish with assets"
+        required: false
+        type: string
   schedule:
     - cron: "43 */6 * * *"
 
@@ -23,11 +28,21 @@ jobs:
 
       - name: Check latest version
         id: check
-        run: python scripts/track.py --check
+        run: |
+          if [ -n "${{ inputs.version }}" ]; then
+            python scripts/track.py --update --version "${{ inputs.version }}"
+          else
+            python scripts/track.py --check
+          fi
 
       - name: Update metadata and download assets
         if: steps.check.outputs.changed == 'true'
-        run: python scripts/track.py --update --download
+        run: |
+          if [ -n "${{ inputs.version }}" ]; then
+            python scripts/track.py --update --download --version "${{ inputs.version }}"
+          else
+            python scripts/track.py --update --download
+          fi
 
       - name: Commit versions.json
         if: steps.check.outputs.changed == 'true'
@@ -35,8 +50,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add versions.json
-          git commit -m "Track QQ Linux ${{ steps.check.outputs.version }}"
-          git push
+          if git diff --cached --quiet; then
+            echo "No metadata changes to commit"
+          else
+            git commit -m "Track QQ Linux ${{ steps.check.outputs.version }}"
+            git push
+          fi
 
       - name: Publish GitHub Release
         if: steps.check.outputs.changed == 'true'
@@ -44,11 +63,24 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if compgen -G "downloads/*" > /dev/null; then
-            gh release create "${{ steps.check.outputs.tag }}" downloads/* \
-              --title "QQ Linux ${{ steps.check.outputs.version }}" \
-              --notes-file release-notes.md
+            if gh release view "${{ steps.check.outputs.tag }}" >/dev/null 2>&1; then
+              gh release edit "${{ steps.check.outputs.tag }}" \
+                --title "QQ Linux ${{ steps.check.outputs.version }}" \
+                --notes-file release-notes.md
+              gh release upload "${{ steps.check.outputs.tag }}" downloads/* --clobber
+            else
+              gh release create "${{ steps.check.outputs.tag }}" downloads/* \
+                --title "QQ Linux ${{ steps.check.outputs.version }}" \
+                --notes-file release-notes.md
+            fi
           else
-            gh release create "${{ steps.check.outputs.tag }}" \
-              --title "QQ Linux ${{ steps.check.outputs.version }}" \
-              --notes-file release-notes.md
+            if gh release view "${{ steps.check.outputs.tag }}" >/dev/null 2>&1; then
+              gh release edit "${{ steps.check.outputs.tag }}" \
+                --title "QQ Linux ${{ steps.check.outputs.version }}" \
+                --notes-file release-notes.md
+            else
+              gh release create "${{ steps.check.outputs.tag }}" \
+                --title "QQ Linux ${{ steps.check.outputs.version }}" \
+                --notes-file release-notes.md
+            fi
           fi

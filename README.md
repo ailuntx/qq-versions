@@ -10,6 +10,8 @@
 - `released`: 官方配置中的更新时间
 - `packages`: 按架构和包格式分组的下载信息
 - `config_url`: 本次采集使用的官方配置脚本
+- `size_human`: 下载安装包后写入的易读大小
+- `sha256`: 下载安装包后计算的 SHA256
 
 QQ Linux 官网会按访问地区/CDN 返回不同版本。`latest` 表示当前已知最高版本，`last_seen` 表示最近一次采集环境看到的版本。
 
@@ -32,6 +34,12 @@ python scripts/track.py --update
 
 ```bash
 python scripts/track.py --check --update --download
+```
+
+重新发布已记录版本的资产：
+
+```bash
+python scripts/track.py --update --download --version 3.2.29
 ```
 
 ## 自动发布
