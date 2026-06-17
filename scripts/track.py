@@ -26,23 +26,33 @@ DEFAULT_CONFIG_URL = "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/linu
 DEFAULT_TIMEOUT = 30
 CONFIG_URL_RE = re.compile(r'var\s+rainbowConfigUrl\s*=\s*"([^"]+)"')
 CONFIG_JSON_RE = re.compile(r"var\s+params\s*=\s*(\{.*?\});", re.DOTALL)
+NETWORK_ERRORS = (urllib.error.URLError, OSError, http.client.HTTPException, TimeoutError)
 
 
 def utc_now() -> str:
     return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
 
-def fetch_text(url: str, timeout: int = DEFAULT_TIMEOUT) -> str:
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": "Mozilla/5.0 (compatible; version-tracker/1.0)",
-            "Accept": "text/html,application/javascript,*/*;q=0.8",
-        },
-    )
-    with urllib.request.urlopen(req, timeout=timeout) as response:
-        charset = response.headers.get_content_charset() or "utf-8"
-        return response.read().decode(charset, errors="replace")
+def fetch_text(url: str, timeout: int = DEFAULT_TIMEOUT, attempts: int = 3) -> str:
+    last_error: BaseException | None = None
+    for attempt in range(1, attempts + 1):
+        req = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": "Mozilla/5.0 (compatible; version-tracker/1.0)",
+                "Accept": "text/html,application/javascript,*/*;q=0.8",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                charset = response.headers.get_content_charset() or "utf-8"
+                return response.read().decode(charset, errors="replace")
+        except NETWORK_ERRORS as exc:
+            last_error = exc
+            if attempt < attempts:
+                time.sleep(2 * attempt)
+    assert last_error is not None
+    raise last_error
 
 
 def request_headers(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict[str, str]:
@@ -73,7 +83,7 @@ def request_headers(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict[str, str]:
                 "error": str(exc.reason),
                 **{k.lower(): v for k, v in exc.headers.items()},
             }
-    except (urllib.error.URLError, OSError) as exc:
+    except NETWORK_ERRORS as exc:
         return failed(exc)
 
     req = urllib.request.Request(
@@ -97,7 +107,7 @@ def request_headers(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict[str, str]:
             "error": str(exc.reason),
             **{k.lower(): v for k, v in exc.headers.items()},
         }
-    except (urllib.error.URLError, OSError) as exc:
+    except NETWORK_ERRORS as exc:
         return failed(exc)
 
 
@@ -254,7 +264,7 @@ def human_size(size: int | None) -> str:
     return f"{size / 1024 / 1024:.1f} MiB ({size} bytes)"
 
 
-DOWNLOAD_ERRORS = (urllib.error.URLError, OSError, http.client.HTTPException, TimeoutError)
+DOWNLOAD_ERRORS = NETWORK_ERRORS
 
 
 def download_file(url: str, directory: Path, timeout: int, attempts: int = 3) -> tuple[Path, int, str]:
@@ -365,7 +375,15 @@ def main(argv: list[str] | None = None) -> int:
         set_output("version", release["version"])
         set_output("tag", release["version"])
     elif args.check:
-        release = get_current_release(args.timeout)
+        try:
+            release = get_current_release(args.timeout)
+        except NETWORK_ERRORS as exc:
+            latest = data.get("latest") or "unknown"
+            print(f"Network error while checking latest version; skipping this run: {exc}")
+            set_output("changed", "false")
+            set_output("version", latest)
+            set_output("tag", latest)
+            return 0
         write_json(args.latest, release)
         changed = release["version"] not in known_versions(data)
         set_output("changed", "true" if changed else "false")
