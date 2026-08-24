@@ -2,8 +2,8 @@
   "schema": 1,
   "product": "QQ Linux",
   "source": "https://im.qq.com/linuxqq/index.shtml",
-  "updated_at": "2026-07-23T10:05:57+00:00",
-  "latest": "3.2.31",
+  "updated_at": "2026-08-24T08:31:17+00:00",
+  "latest": "3.2.32",
   "versions": [
     {
       "version": "3.2.22",
@@ -321,7 +321,117 @@
         }
       },
       "config_url": "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/linuxConfig.js"
+    },
+    {
+      "version": "3.2.32",
+      "released": "2026-08-12T00:00:00+00:00",
+      "packages": {
+        "x86_64": {
+          "deb": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_amd64_01.deb",
+            "status": 200,
+            "size": 185828040,
+            "last_modified": "2026-08-12T09:37:38+00:00",
+            "etag": "\"8c17a0c36e49c25197717a167479db94-36\"",
+            "md5": null,
+            "sha256": "d085dd89397225061eb9f194308f688129818ed445777e97a4a0a16e13d7b0e8",
+            "error": null,
+            "file": "QQ_3.2.32_260812_amd64_01.deb",
+            "size_human": "177.2 MiB (185828040 bytes)"
+          },
+          "rpm": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_x86_64_01.rpm",
+            "status": 200,
+            "size": 187341996,
+            "last_modified": "2026-08-12T09:37:44+00:00",
+            "etag": "\"d05599a192c0502bc462c3d61419e805-36\"",
+            "md5": null,
+            "sha256": "6ce82940f7f94d18d003ed93cb3ab7feaa44a160fbdc45f8f01b4cf08bf34ddf",
+            "error": null,
+            "file": "QQ_3.2.32_260812_x86_64_01.rpm",
+            "size_human": "178.7 MiB (187341996 bytes)"
+          },
+          "appimage": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_x86_64_01.AppImage",
+            "status": 200,
+            "size": 268112737,
+            "last_modified": "2026-08-12T09:37:43+00:00",
+            "etag": "\"ab292fa5c27b8f027cf205c66109149a-51\"",
+            "md5": null,
+            "sha256": "311043510d64fc006ed252ce8ae7f133660f1f678eff01cf255e2907c1f42d7f",
+            "error": null,
+            "file": "QQ_3.2.32_260812_x86_64_01.AppImage",
+            "size_human": "255.7 MiB (268112737 bytes)"
+          }
+        },
+        "arm64": {
+          "deb": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_arm64_01.deb",
+            "status": 200,
+            "size": 205524324,
+            "last_modified": "2026-08-12T09:37:40+00:00",
+            "etag": "\"d70497f6a276fd7c2dc6da9460c06513-40\"",
+            "md5": null,
+            "sha256": "8796ccfd66acc025ef18db37185532d40bc8c58921e17da6d28c295acbcf8f92",
+            "error": null,
+            "file": "QQ_3.2.32_260812_arm64_01.deb",
+            "size_human": "196.0 MiB (205524324 bytes)"
+          },
+          "rpm": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_aarch64_01.rpm",
+            "status": 200,
+            "size": 180220161,
+            "last_modified": "2026-08-12T09:37:38+00:00",
+            "etag": "\"b4b77114148d249e13d20aff764743f0-35\"",
+            "md5": null,
+            "sha256": "7ccdf1afe1ddf87abf65ce2819c4808080fa98a48593006c52b47691e5fc752f",
+            "error": null,
+            "file": "QQ_3.2.32_260812_aarch64_01.rpm",
+            "size_human": "171.9 MiB (180220161 bytes)"
+          },
+          "appimage": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_arm64_01.AppImage",
+            "status": 200,
+            "size": 273359583,
+            "last_modified": "2026-08-12T09:37:40+00:00",
+            "etag": "\"990ac288bf6d66d68a275d33dc7c0153-52\"",
+            "md5": null,
+            "sha256": "2b00d8c543b71ecd349942d840207ef9de34a16d783298a20577e369e1d1e8ed",
+            "error": null,
+            "file": "QQ_3.2.32_260812_arm64_01.AppImage",
+            "size_human": "260.7 MiB (273359583 bytes)"
+          }
+        },
+        "loongarch64": {
+          "deb": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_loongarch64_01.deb",
+            "status": 200,
+            "size": 179336078,
+            "last_modified": "2026-08-12T09:37:42+00:00",
+            "etag": "\"0bfd9df9514ce5429c9374be17264fac-35\"",
+            "md5": null,
+            "sha256": "400553f6d646da4e523b22ba652334f08f74b377c465392dda65c2e6c9f908fd",
+            "error": null,
+            "file": "QQ_3.2.32_260812_loongarch64_01.deb",
+            "size_human": "171.0 MiB (179336078 bytes)"
+          }
+        },
+        "mips64el": {
+          "deb": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.32/release/c390e792/QQ_3.2.31_260710_mips64el_01.deb",
+            "status": 200,
+            "size": 171313488,
+            "last_modified": "2026-07-20T13:09:54+00:00",
+            "etag": "\"845545d91db0dffac0a1ac4286aa407a-33\"",
+            "md5": null,
+            "sha256": null,
+            "error": null,
+            "download_error": "[Errno 104] Connection reset by peer"
+          }
+        }
+      },
+      "config_url": "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/linuxConfig.js"
     }
   ],
-  "last_seen": "3.2.31"
+  "last_seen": "3.2.32"
 }
