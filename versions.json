@@ -2,8 +2,8 @@
   "schema": 1,
   "product": "QQ Linux",
   "source": "https://im.qq.com/linuxqq/index.shtml",
-  "updated_at": "2026-08-24T08:31:17+00:00",
-  "latest": "3.2.32",
+  "updated_at": "2026-09-21T14:32:55+00:00",
+  "latest": "3.2.33",
   "versions": [
     {
       "version": "3.2.22",
@@ -431,7 +431,110 @@
         }
       },
       "config_url": "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/linuxConfig.js"
+    },
+    {
+      "version": "3.2.33",
+      "released": "2026-09-02T00:00:00+00:00",
+      "packages": {
+        "x86_64": {
+          "deb": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNTV2/9.9.35/release/1763096b/QQ_3.2.33_260902_amd64_01.deb",
+            "status": 403,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Forbidden",
+            "download_error": "Forbidden"
+          },
+          "rpm": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNTV2/9.9.35/release/1763096b/QQ_3.2.33_260902_x86_64_01.rpm",
+            "status": 403,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Forbidden",
+            "download_error": "Forbidden"
+          },
+          "appimage": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNTV2/9.9.35/release/1763096b/QQ_3.2.33_260902_x86_64_01.AppImage",
+            "status": 403,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Forbidden",
+            "download_error": "Forbidden"
+          }
+        },
+        "arm64": {
+          "deb": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNTV2/9.9.35/release/1763096b/QQ_3.2.33_260902_arm64_01.deb",
+            "status": 403,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Forbidden",
+            "download_error": "Forbidden"
+          },
+          "rpm": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNTV2/9.9.35/release/1763096b/QQ_3.2.33_260902_aarch64_01.rpm",
+            "status": 403,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Forbidden",
+            "download_error": "Forbidden"
+          },
+          "appimage": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNTV2/9.9.35/release/1763096b/QQ_3.2.33_260902_arm64_01.AppImage",
+            "status": 403,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Forbidden",
+            "download_error": "Forbidden"
+          }
+        },
+        "loongarch64": {
+          "deb": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNTV2/9.9.35/release/1763096b/QQ_3.2.33_260902_loongarch64_01.deb",
+            "status": 403,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Forbidden",
+            "download_error": "Forbidden"
+          }
+        },
+        "mips64el": {
+          "deb": {
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNTV2/9.9.33/release/3f89efc5/QQ_3.2.32_260812_mips64el_01.deb",
+            "status": 403,
+            "size": 0,
+            "last_modified": null,
+            "etag": null,
+            "md5": null,
+            "sha256": null,
+            "error": "Forbidden",
+            "download_error": "Forbidden"
+          }
+        }
+      },
+      "config_url": "https://cdn-go.cn/qq-web/im.qq.com_new/latest/rainbow/linuxConfig.js"
     }
   ],
-  "last_seen": "3.2.32"
+  "last_seen": "3.2.33"
 }
